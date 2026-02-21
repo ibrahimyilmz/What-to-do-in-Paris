@@ -14,6 +14,7 @@ function App() {
     const [selectedEvent, setSelectedEvent] = useState<ParisEvent | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
 
+
     useEffect(() => {
         setLoading(true);
         fetchEvents(21, searchQuery, isFreeOnly) // isFreeOnly parametresi eklendi
@@ -47,11 +48,7 @@ function App() {
                                 color="primary"
                             />
                         }
-                        label={
-                            <Typography sx={{ fontWeight: 'bold', color: 'text.primary' }}>
-                                Sadece Ücretsizler
-                            </Typography>
-                        }
+                        label="Sadece Ücretsizler"
                     />
                 </Box>
 

@@ -21,9 +21,17 @@ const EventCard = ({ event, onDetailClick }: Props) => {
     };
 
     return (
-        <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 2, boxShadow: 3 }}>
-
-            {/* Ücretsiz Etkinlik Rozeti */}
+        <Card
+            sx={{
+                height: '100%',
+                display: 'flex',
+                flexDirection: 'column',
+                borderRadius: 2,
+                boxShadow: 3,
+                position: 'relative' // KRİTİK: Rozetin kartın içinde kalmasını sağlar
+            }}
+        >
+            {/* Ücretsiz Etkinlik Rozeti - Resmin üzerine biner */}
             {event.price_type === 'gratuit' && (
                 <Chip
                     label="GRATUIT!"
@@ -34,12 +42,11 @@ const EventCard = ({ event, onDetailClick }: Props) => {
                         top: 10,
                         right: 10,
                         fontWeight: 'bold',
-                        zIndex: 1,
+                        zIndex: 1, // Resmin altında kalmaması için
                         boxShadow: 2
                     }}
                 />
             )}
-
             {event.image_url && (
                 <CardMedia
                     component="img"
