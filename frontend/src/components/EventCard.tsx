@@ -1,4 +1,5 @@
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
+import DirectionsTransitIcon from '@mui/icons-material/DirectionsTransit';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from '@mui/material';
 import type { ParisEvent } from '../types/event';
@@ -68,11 +69,18 @@ const EventCard = ({ event, onDetailClick }: Props) => {
                     </Typography>
                 </Box>
 
-                {event.distance && (
-                    <Typography variant="caption" sx={{ color: 'secondary.main', fontWeight: 'bold' }}>
-                        📍 Yurduna {event.distance} km uzaklıkta
+                <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, gap: 1, flexWrap: 'wrap' }}>
+                    <Typography variant="caption" sx={{ color: 'secondary.main', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                        📍 {event.distance} km
                     </Typography>
-                )}
+
+                    {event.travel_time && (
+                        <Typography variant="caption" sx={{ color: 'info.main', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 0.5 }}>
+                            <DirectionsTransitIcon sx={{ fontSize: 14 }} />
+                            {event.travel_time} dk
+                        </Typography>
+                    )}
+                </Box>
 
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 1 }}>
                     <LocationOnIcon sx={{ fontSize: 16, color: 'text.secondary' }} />

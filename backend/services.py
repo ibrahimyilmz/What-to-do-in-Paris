@@ -1,6 +1,6 @@
 import diskcache
 from typing import List
-from repository import ParisEventRepository
+from repository import TravelTimeRepository, ParisEventRepository
 from utils import calculate_distance
 
 cache = diskcache.Cache('event_cache')
@@ -15,16 +15,16 @@ async def fetch_paris_events(limit: int = 20, query: str = None, is_free: bool =
         return cache[cache_key]
 
     # Repository katmanından ham veriyi al
-    raw_results = await ParisEventRepository.get_raw_events(limit, query, is_free)
+    raw_results = await ParisEventRepository.get_raw_events(limit, query, is_free, offset)
     
     events = []
     for record in raw_results:
         coords = record.get("lat_lon", {})
+        lat, lon = coords.get("lat"), coords.get("lon")
         
-        # İş mantığı (Business Logic): Mesafe hesaplama servis katmanında kalır
-        distance = calculate_distance(
-            USER_HOME["lat"], USER_HOME["lon"], 
-            coords.get("lat"), coords.get("lon")
+        distance = calculate_distance(USER_HOME["lat"], USER_HOME["lon"], lat, lon)
+        travel_time = await TravelTimeRepository.get_travel_duration(
+            USER_HOME["lat"], USER_HOME["lon"], lat, lon
         )
         
         events.append({
@@ -39,6 +39,7 @@ async def fetch_paris_events(limit: int = 20, query: str = None, is_free: bool =
             "lat": coords.get("lat"),
             "lon": coords.get("lon"),
             "distance": distance,
+            "travel_time": travel_time,
             "price_type": record.get("price_type")
         })
     

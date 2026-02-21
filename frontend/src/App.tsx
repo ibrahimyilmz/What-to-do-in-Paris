@@ -6,6 +6,9 @@ import EventDetailsModal from './components/EventDetailsModal';
 import Navbar from './components/Navbar';
 import { fetchEvents } from './services/api';
 import type { ParisEvent } from './types/event';
+
+const EVENT_LIMIT = 21; // how many events to fetch per page
+
 function App() {
     const [events, setEvents] = useState<ParisEvent[]>([]);
     const [loading, setLoading] = useState(true);
@@ -14,7 +17,6 @@ function App() {
     const [selectedEvent, setSelectedEvent] = useState<ParisEvent | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [page, setPage] = useState(0); // Kaçıncı sayfada olduğumuzu tutar
-    const limit = 21;
 
 
     // Arama veya filtre değişince listeyi sıfırla
@@ -25,7 +27,7 @@ function App() {
 
     const loadEvents = (currentOffset: number, isInitial: boolean) => {
         setLoading(true);
-        fetchEvents(limit, searchQuery, isFreeOnly, currentOffset)
+        fetchEvents(EVENT_LIMIT, searchQuery, isFreeOnly, currentOffset)
             .then(newData => {
                 if (isInitial) {
                     setEvents(newData);
@@ -37,7 +39,7 @@ function App() {
     };
 
     const handleLoadMore = () => {
-        const nextOffset = page + limit;
+        const nextOffset = page + EVENT_LIMIT;
         setPage(nextOffset);
         loadEvents(nextOffset, false);
     };
@@ -66,6 +68,7 @@ function App() {
                             />
                         }
                         label="Sadece Ücretsizler"
+                        sx={{ color: 'black' }}
                     />
                 </Box>
 

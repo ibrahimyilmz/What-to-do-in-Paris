@@ -13,4 +13,5 @@ class ParisEvent(BaseModel):
     lat: Optional[float] = None
     lon: Optional[float] = None
     distance: Optional[float] = None
+    travel_time: Optional[int] = None
     price_type: Optional[str] = None
