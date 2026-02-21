@@ -9,4 +9,7 @@ export interface ParisEvent {
     address_name?: string;
     category?: string;
     price_type?: string;
+    distance?: number;
+    lat?: number;
+    lon?: number;
 }

@@ -3,12 +3,23 @@ import LocationOnIcon from '@mui/icons-material/LocationOn';
 import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
 import type { ParisEvent } from '../types/event';
 
+const GOOGLE_MAPS_SEARCH_BASE = 'https://www.google.com/maps/search/?api=1&query=';
+const DEFAULT_LOCATION = 'Paris';
+
 interface Props {
     event: ParisEvent;
-    onDetailClick: () => void; // Bu satırı ekledik
+    onDetailClick: () => void;
 }
 
-const EventCard = ({ event, onDetailClick }: Props) => { // onDetailClick'i burada karşıladık
+const EventCard = ({ event, onDetailClick }: Props) => {
+
+    const getGoogleMapsUrl = (lat?: number, lon?: number, address?: string) => {
+        if (lat && lon) {
+            return `${GOOGLE_MAPS_SEARCH_BASE}${lat},${lon}`;
+        }
+        return `${GOOGLE_MAPS_SEARCH_BASE}${encodeURIComponent(address || DEFAULT_LOCATION)}`;
+    };
+
     return (
         <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 2, boxShadow: 3 }}>
             {event.image_url && (
@@ -19,6 +30,7 @@ const EventCard = ({ event, onDetailClick }: Props) => { // onDetailClick'i bura
                     alt={event.title}
                 />
             )}
+
             <CardContent sx={{ flexGrow: 1 }}>
                 <Typography gutterBottom variant="h6" component="div" sx={{ fontSize: '1.1rem', fontWeight: 'bold' }}>
                     {event.title}
@@ -30,6 +42,12 @@ const EventCard = ({ event, onDetailClick }: Props) => { // onDetailClick'i bura
                         {event.date_start ? new Date(event.date_start).toLocaleDateString('tr-TR') : 'Tarih belirtilmedi'}
                     </Typography>
                 </Box>
+
+                {event.distance && (
+                    <Typography variant="caption" sx={{ color: 'secondary.main', fontWeight: 'bold' }}>
+                        📍 Yurduna {event.distance} km uzaklıkta
+                    </Typography>
+                )}
 
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 2, gap: 1 }}>
                     <LocationOnIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
@@ -46,6 +64,16 @@ const EventCard = ({ event, onDetailClick }: Props) => { // onDetailClick'i bura
                     onClick={onDetailClick} // onClick artık modalı tetikliyor
                 >
                     Detayları Gör
+                </Button>
+
+                <Button
+                    size="small"
+                    color="secondary"
+                    startIcon={<LocationOnIcon />}
+                    href={getGoogleMapsUrl(event.lat, event.lon, event.address_name)}
+                    target="_blank"
+                >
+                    Haritada Gör
                 </Button>
             </CardActions>
         </Card>

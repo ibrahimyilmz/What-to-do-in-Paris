@@ -44,8 +44,11 @@ function App() {
                 ) : (
                     <Grid container spacing={4}>
                         {events.map(event => (
-                            <Grid item key={event.id} xs={12} sm={6} md={4}>
-                                <EventCard event={event} onDetailClick={() => handleOpenModal(event)} />
+                            <Grid key={event.id} size={{ xs: 12, sm: 6, md: 4 }}>
+                                <EventCard
+                                    event={event}
+                                    onDetailClick={() => handleOpenModal(event)}
+                                />
                             </Grid>
                         ))}
                     </Grid>

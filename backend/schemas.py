@@ -10,4 +10,7 @@ class ParisEvent(BaseModel):
     url: Optional[str] = None
     image_url: Optional[str] = None
     address_name: Optional[str] = None
+    lat: Optional[float] = None
+    lon: Optional[float] = None
+    distance: Optional[float] = None
     price_type: Optional[str] = None
