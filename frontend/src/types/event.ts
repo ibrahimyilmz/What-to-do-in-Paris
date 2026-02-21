@@ -1,0 +1,12 @@
+export interface ParisEvent {
+    id: string;
+    title: string;
+    description?: string;
+    date_start?: string;
+    date_end?: string;
+    url?: string;
+    image_url?: string;
+    address_name?: string;
+    category?: string;
+    price_type?: string;
+}
