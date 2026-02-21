@@ -5,11 +5,22 @@ PARIS_API_URL = "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/que
 
 class ParisEventRepository:
     @staticmethod
-    async def get_raw_events(limit: int, query: Optional[str]) -> List[dict]:
+    async def get_raw_events(limit: int, query: Optional[str], is_free: bool = False) -> List[dict]:
         async with httpx.AsyncClient() as client:
             params = {"limit": limit, "order_by": "date_start DESC"}
+            where_clauses = []
+            
+            # Başlık filtresi
             if query and query.strip():
-                params["where"] = f'title like "*{query}*"'
+                where_clauses.append(f'title like "*{query}*"')
+            
+            # Ücretsiz filtresi (Paris API'sinde 'gratuit' olarak tutulur)
+            if is_free:
+                where_clauses.append("price_type='gratuit'")
+                
+            # Filtreleri AND ile birleştiriyoruz
+            if where_clauses:
+                params["where"] = " AND ".join(where_clauses)
                 
             response = await client.get(PARIS_API_URL, params=params)
             response.raise_for_status()

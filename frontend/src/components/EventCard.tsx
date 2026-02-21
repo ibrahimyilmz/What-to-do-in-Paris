@@ -1,6 +1,6 @@
 import CalendarTodayIcon from '@mui/icons-material/CalendarToday';
 import LocationOnIcon from '@mui/icons-material/LocationOn';
-import { Box, Button, Card, CardActions, CardContent, CardMedia, Typography } from '@mui/material';
+import { Box, Button, Card, CardActions, CardContent, CardMedia, Chip, Typography } from '@mui/material';
 import type { ParisEvent } from '../types/event';
 
 const GOOGLE_MAPS_SEARCH_BASE = 'https://www.google.com/maps/search/?api=1&query=';
@@ -22,6 +22,24 @@ const EventCard = ({ event, onDetailClick }: Props) => {
 
     return (
         <Card sx={{ height: '100%', display: 'flex', flexDirection: 'column', borderRadius: 2, boxShadow: 3 }}>
+
+            {/* Ücretsiz Etkinlik Rozeti */}
+            {event.price_type === 'gratuit' && (
+                <Chip
+                    label="GRATUIT!"
+                    color="success"
+                    size="small"
+                    sx={{
+                        position: 'absolute',
+                        top: 10,
+                        right: 10,
+                        fontWeight: 'bold',
+                        zIndex: 1,
+                        boxShadow: 2
+                    }}
+                />
+            )}
+
             {event.image_url && (
                 <CardMedia
                     component="img"

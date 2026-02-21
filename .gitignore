@@ -141,6 +141,13 @@ lerna-debug.log*
 # yarn.lock
 # pnpm-lock.yaml
 
+# ---------- Cache ----------
+# General caches and linter caches
+.cache/
+cache/
+.eslintcache
+.stylelintcache
+
 # ---------- Editor / OS / Misc ----------
 # VS Code
 .vscode/
