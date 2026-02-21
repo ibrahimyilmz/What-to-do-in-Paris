@@ -20,6 +20,5 @@ async def root():
     return {"status": "API is running!"}
 
 @app.get("/api/events", response_model=List[ParisEvent])
-async def get_events(limit: int = 20, q: str = None, is_free: bool = False):
-    events = await fetch_paris_events(limit=limit, query=q, is_free=is_free)
-    return events
+async def get_events(limit: int = 20, q: str = None, is_free: bool = False, offset: int = 0):
+    return await fetch_paris_events(limit, q, is_free, offset)

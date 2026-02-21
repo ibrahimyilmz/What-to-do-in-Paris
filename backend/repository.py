@@ -5,9 +5,9 @@ PARIS_API_URL = "https://opendata.paris.fr/api/explore/v2.1/catalog/datasets/que
 
 class ParisEventRepository:
     @staticmethod
-    async def get_raw_events(limit: int, query: Optional[str], is_free: bool = False) -> List[dict]:
+    async def get_raw_events(limit: int, query: Optional[str], is_free: bool = False, offset: int = 0) -> List[dict]:
         async with httpx.AsyncClient() as client:
-            params = {"limit": limit, "order_by": "date_start DESC"}
+            params = {"limit": limit, "offset": offset, "order_by": "date_start DESC"} # offset eklendi
             where_clauses = []
             
             # Başlık filtresi

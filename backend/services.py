@@ -7,8 +7,8 @@ cache = diskcache.Cache('event_cache')
 CACHE_EXPIRE = 600
 USER_HOME = {"lat": 48.8396, "lon": 2.5833}
 
-async def fetch_paris_events(limit: int = 20, query: str = None, is_free: bool = False) -> List[dict]:
-    cache_key = f"events_{limit}_{query or 'all'}_free_{is_free}"
+async def fetch_paris_events(limit: int = 20, query: str = None, is_free: bool = False, offset: int = 0) -> List[dict]:
+    cache_key = f"events_{limit}_{offset}_{query or 'all'}_free_{is_free}"
     
     if cache_key in cache:
         print("Cache hit for paris events")

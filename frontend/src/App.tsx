@@ -1,4 +1,4 @@
-import { Box, CircularProgress, Container, FormControlLabel, Switch, Typography } from '@mui/material';
+import { Box, Button, CircularProgress, Container, FormControlLabel, Switch, Typography } from '@mui/material';
 import Grid from '@mui/material/Grid';
 import { useEffect, useState } from 'react';
 import EventCard from './components/EventCard';
@@ -13,17 +13,34 @@ function App() {
     const [isFreeOnly, setIsFreeOnly] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState<ParisEvent | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
+    const [page, setPage] = useState(0); // Kaçıncı sayfada olduğumuzu tutar
+    const limit = 21;
 
 
+    // Arama veya filtre değişince listeyi sıfırla
     useEffect(() => {
+        setPage(0);
+        loadEvents(0, true);
+    }, [searchQuery, isFreeOnly]);
+
+    const loadEvents = (currentOffset: number, isInitial: boolean) => {
         setLoading(true);
-        fetchEvents(21, searchQuery, isFreeOnly) // isFreeOnly parametresi eklendi
-            .then(data => {
-                setEvents(data);
+        fetchEvents(limit, searchQuery, isFreeOnly, currentOffset)
+            .then(newData => {
+                if (isInitial) {
+                    setEvents(newData);
+                } else {
+                    setEvents(prev => [...prev, ...newData]); // Öncekilerin sonuna ekle
+                }
                 setLoading(false);
-            })
-            .catch(() => setLoading(false));
-    }, [searchQuery, isFreeOnly]); // isFreeOnly değişince de tetiklenecek
+            });
+    };
+
+    const handleLoadMore = () => {
+        const nextOffset = page + limit;
+        setPage(nextOffset);
+        loadEvents(nextOffset, false);
+    };
 
     const handleOpenModal = (event: ParisEvent) => {
         setSelectedEvent(event);
@@ -65,6 +82,19 @@ function App() {
                             </Grid>
                         ))}
                     </Grid>
+                )}
+
+                {!loading && events.length > 0 && (
+                    <Box sx={{ display: 'flex', justifyContent: 'center', my: 6 }}>
+                        <Button
+                            variant="outlined"
+                            size="large"
+                            onClick={handleLoadMore}
+                            sx={{ borderRadius: 4, px: 4 }}
+                        >
+                            Daha Fazla Etkinlik Yükle
+                        </Button>
+                    </Box>
                 )}
             </Container>
             <EventDetailsModal event={selectedEvent} open={isModalOpen} onClose={() => setIsModalOpen(false)} />
