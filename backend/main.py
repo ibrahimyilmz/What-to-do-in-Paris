@@ -14,7 +14,6 @@ app.add_middleware(
     allow_headers=["*"],
 )
 
-# For my sanity check
 @app.get("/")
 async def root():
     return {"status": "API is running!"}

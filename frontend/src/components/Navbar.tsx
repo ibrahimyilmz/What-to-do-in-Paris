@@ -2,7 +2,7 @@ import SearchIcon from '@mui/icons-material/Search';
 import TravelExploreIcon from '@mui/icons-material/TravelExplore';
 import { AppBar, InputBase, Toolbar, Typography, alpha, styled } from '@mui/material';
 
-// Arama kutusu için özel MUI stilleri
+// Custom MUI styles for the search box
 const Search = styled('div')(({ theme }) => ({
     position: 'relative',
     borderRadius: theme.shape.borderRadius,
@@ -51,7 +51,7 @@ const Navbar = ({ onSearch }: NavbarProps) => {
                         <SearchIcon />
                     </SearchIconWrapper>
                     <StyledInputBase
-                        placeholder="Etkinlik ara..."
+                        placeholder="Search events..."
                         onChange={(e) => onSearch(e.target.value)}
                     />
                 </Search>

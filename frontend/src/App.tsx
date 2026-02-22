@@ -7,7 +7,7 @@ import Navbar from './components/Navbar';
 import { fetchEvents } from './services/api';
 import type { ParisEvent } from './types/event';
 
-const EVENT_LIMIT = 21; // how many events to fetch per page
+const EVENT_LIMIT = 21; // number of events to fetch per page
 
 function App() {
     const [events, setEvents] = useState<ParisEvent[]>([]);
@@ -16,10 +16,10 @@ function App() {
     const [isFreeOnly, setIsFreeOnly] = useState(false);
     const [selectedEvent, setSelectedEvent] = useState<ParisEvent | null>(null);
     const [isModalOpen, setIsModalOpen] = useState(false);
-    const [page, setPage] = useState(0); // Kaçıncı sayfada olduğumuzu tutar
+    const [page, setPage] = useState(0); // current page offset
 
 
-    // Arama veya filtre değişince listeyi sıfırla
+    // Reset list when search or filter changes
     useEffect(() => {
         setPage(0);
         loadEvents(0, true);
@@ -32,7 +32,7 @@ function App() {
                 if (isInitial) {
                     setEvents(newData);
                 } else {
-                    setEvents(prev => [...prev, ...newData]); // Öncekilerin sonuna ekle
+                    setEvents(prev => [...prev, ...newData]); // append to existing
                 }
                 setLoading(false);
             });
@@ -55,10 +55,10 @@ function App() {
             <Container maxWidth="lg" sx={{ py: 2 }}>
                 <Box sx={{ textAlign: 'center', mb: 4 }}>
                     <Typography variant="h3" sx={{ fontWeight: 'bold', color: 'primary.main' }}>
-                        Paris Etkinlik Rehberi
+                        Paris Events Guide
                     </Typography>
 
-                    {/* Ücretsiz Filtresi Switch'i */}
+                    {/* Free-only filter switch */}
                     <FormControlLabel
                         control={
                             <Switch
@@ -67,7 +67,7 @@ function App() {
                                 color="primary"
                             />
                         }
-                        label="Sadece Ücretsizler"
+                        label="Free Only"
                         sx={{ color: 'black' }}
                     />
                 </Box>
@@ -95,7 +95,7 @@ function App() {
                             onClick={handleLoadMore}
                             sx={{ borderRadius: 4, px: 4 }}
                         >
-                            Daha Fazla Etkinlik Yükle
+                            Load More Events
                         </Button>
                     </Box>
                 )}

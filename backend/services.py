@@ -14,7 +14,6 @@ async def fetch_paris_events(limit: int = 20, query: str = None, is_free: bool =
         print("Cache hit for paris events")
         return cache[cache_key]
 
-    # Repository katmanından ham veriyi al
     raw_results = await ParisEventRepository.get_raw_events(limit, query, is_free, offset)
     
     events = []

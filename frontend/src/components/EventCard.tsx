@@ -29,10 +29,10 @@ const EventCard = ({ event, onDetailClick }: Props) => {
                 flexDirection: 'column',
                 borderRadius: 2,
                 boxShadow: 3,
-                position: 'relative' // KRİTİK: Rozetin kartın içinde kalmasını sağlar
+                position: 'relative' // CRITICAL: keeps the badge inside the card
             }}
         >
-            {/* Ücretsiz Etkinlik Rozeti - Resmin üzerine biner */}
+            {/* Free event badge - overlaps the image */}
             {event.price_type === 'gratuit' && (
                 <Chip
                     label="GRATUIT!"
@@ -43,7 +43,7 @@ const EventCard = ({ event, onDetailClick }: Props) => {
                         top: 10,
                         right: 10,
                         fontWeight: 'bold',
-                        zIndex: 1, // Resmin altında kalmaması için
+                        zIndex: 1, // ensure it stays above the image
                         boxShadow: 2
                     }}
                 />
@@ -65,7 +65,7 @@ const EventCard = ({ event, onDetailClick }: Props) => {
                 <Box sx={{ display: 'flex', alignItems: 'center', mb: 1, gap: 1 }}>
                     <CalendarTodayIcon sx={{ fontSize: 16, color: 'text.secondary' }} />
                     <Typography variant="body2" color="text.secondary">
-                        {event.date_start ? new Date(event.date_start).toLocaleDateString('tr-TR') : 'Tarih belirtilmedi'}
+                        {event.date_start ? new Date(event.date_start).toLocaleDateString('tr-TR') : 'Date not specified'}
                     </Typography>
                 </Box>
 
@@ -77,7 +77,7 @@ const EventCard = ({ event, onDetailClick }: Props) => {
                     {event.travel_time && (
                         <Typography variant="caption" sx={{ color: 'info.main', fontWeight: 'bold', display: 'flex', alignItems: 'center', gap: 0.5 }}>
                             <DirectionsTransitIcon sx={{ fontSize: 14 }} />
-                            {event.travel_time} dk
+                            {event.travel_time} min
                         </Typography>
                     )}
                 </Box>
@@ -94,9 +94,9 @@ const EventCard = ({ event, onDetailClick }: Props) => {
                     size="small"
                     fullWidth
                     variant="contained"
-                    onClick={onDetailClick} // onClick artık modalı tetikliyor
+                    onClick={onDetailClick} // onClick now opens the modal
                 >
-                    Detayları Gör
+                    View Details
                 </Button>
 
                 <Button
@@ -106,7 +106,7 @@ const EventCard = ({ event, onDetailClick }: Props) => {
                     href={getGoogleMapsUrl(event.lat, event.lon, event.address_name)}
                     target="_blank"
                 >
-                    Haritada Gör
+                    View on Map
                 </Button>
             </CardActions>
         </Card>

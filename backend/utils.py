@@ -1,6 +1,6 @@
 import math
 
-R = 6371.0 # Dünya yarıçapı (km)
+R = 6371.0 # World radius in kilometers
 
 def calculate_distance(lat1, lon1, lat2, lon2):
     if not lat1 or not lon1 or not lat2 or not lon2:
@@ -13,4 +13,4 @@ def calculate_distance(lat1, lon1, lat2, lon2):
         math.cos(math.radians(lat2)) * math.sin(dlon / 2)**2
     c = 2 * math.atan2(math.sqrt(a), math.sqrt(1 - a))
     
-    return round(R * c, 1) # 1.2 km gibi döner
+    return round(R * c, 1)

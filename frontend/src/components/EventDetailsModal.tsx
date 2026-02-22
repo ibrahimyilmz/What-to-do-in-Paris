@@ -24,11 +24,11 @@ const EventDetailsModal = ({ event, open, onClose }: Props) => {
                 )}
 
                 <Box sx={{ display: 'flex', gap: 1, mb: 2, flexWrap: 'wrap' }}>
-                    <Chip icon={<CalendarTodayIcon />} label={event.date_start ? new Date(event.date_start).toLocaleDateString('tr-TR') : 'Tarih Belirtilmedi'} variant="outlined" />
+                    <Chip icon={<CalendarTodayIcon />} label={event.date_start ? new Date(event.date_start).toLocaleDateString('tr-TR') : 'Date Not Specified'} variant="outlined" />
                 </Box>
 
                 <Typography variant="body1" sx={{ mt: 2, lineHeight: 1.7 }}>
-                    {event.description || "Bu etkinlik için detaylı açıklama bulunmamaktadır."}
+                    {event.description || "No detailed description available for this event."}
                 </Typography>
 
                 <Box sx={{ mt: 3, display: 'flex', alignItems: 'center', gap: 1 }}>
@@ -41,7 +41,7 @@ const EventDetailsModal = ({ event, open, onClose }: Props) => {
 
             <DialogActions sx={{ p: 2, justifyContent: 'flex-end', gap: 1 }}>
                 <Button onClick={onClose} color="inherit" sx={{ fontWeight: 'bold' }}>
-                    Kapat
+                    Close
                 </Button>
                 <Button
                     variant="contained"
@@ -52,7 +52,7 @@ const EventDetailsModal = ({ event, open, onClose }: Props) => {
                     disabled={!event.url}
                     sx={{ borderRadius: 2, px: 3 }}
                 >
-                    Resmi Sayfaya Git
+                    Visit Official Page
                 </Button>
             </DialogActions>
         </Dialog>
