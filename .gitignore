@@ -204,6 +204,7 @@ Icon
 /backend/venv/
 /backend/__pycache__/
 /backend/*.pyc
+/backend/event_cache/cache.db
 /frontend/node_modules/
 /frontend/dist/
 /frontend/.vite/

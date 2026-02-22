@@ -1,0 +1,21 @@
+# Python sanal ortamı
+venv/
+.venv/
+env/
+
+# Python derleme dosyaları
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Projeye özel: Yerel cache veritabanı (Docker Volume ile yönetilecek)
+event_cache/
+
+# Git ve IDE dosyaları
+.git/
+.gitignore
+.vscode/
+.idea/
+
+# Hassas veriler
+.env
