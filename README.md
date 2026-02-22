@@ -1,10 +1,10 @@
 # What to Do in Paris?
 **A Smart Cultural Event Discovery & Transit Platform**
 
-## 📖 Project Overview
+## Project Overview
 This application is designed to solve a common problem for students and residents in the Greater Paris area: **discovering and reaching cultural events efficiently.** This project integrates real-time transit data and geographical calculations to provide a localized and practical experience for the user.
 
-## 🚀 Key Features
+## Key Features
 - **Smart Localization**: Calculates the direct distance from the user's home to the event using the **Haversine Formula**.
 - **Transit Integration**: Fetches real-time travel duration via the **Île-de-France Mobilités (PRIM) API**.
 - **Budget-Friendly Discovery**: Includes a "Gratuit" (Free) filter to help students find accessible events.
