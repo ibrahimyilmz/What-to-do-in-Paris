@@ -2,7 +2,7 @@
 
 A smart cultural event discovery and transit platform for students and residents in the Greater Paris area.
 
-![System architecture](architecture-overview)
+![System architecture](docs/architecture-overview.png)
 
 ## Table of Contents
 
@@ -189,10 +189,4 @@ CaseStudy/
 - Port already in use:
 	- Free ports 5173/8000 or remap ports in `docker-compose.yml`.
 
-## Roadmap
-
-- Add user-configurable home location instead of hardcoded coordinates.
-- Add automated tests for repositories and service logic.
-- Add CI pipeline for linting and test checks.
-- Add deployment guide (staging/production).
 
